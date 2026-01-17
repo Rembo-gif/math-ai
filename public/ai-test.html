@@ -6,7 +6,8 @@
     <div id="box">Yuklanmoqda...</div>
 
     <script>
-        fetch("http://localhost:3000/ai-test")
+        fetch(window.location.origin + "/ai-test")
+
             .then(r => r.json())
             .then(d => {
                 const box = document.getElementById("box");
