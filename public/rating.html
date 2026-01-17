@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>🏆 Global reyting</h2>
+    <div id="list"></div>
+
+    <script>
+fetch("http://localhost:3000/rating")
+.then(r => r.json())
+.then(data => {
+  data.forEach((u, i) => {
+    list.innerHTML += `
+      <p>${i+1}. ${u.name} ${u.surname} — ${u.score} ball</p>
+    `;
+  });
+});
+    </script>
+
+</body>
+</html>

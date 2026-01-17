@@ -1,0 +1,25 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>🤖 AI Test</h2>
+    <div id="box">Yuklanmoqda...</div>
+
+    <script>
+        fetch("http://localhost:3000/ai-test")
+            .then(r => r.json())
+            .then(d => {
+                const box = document.getElementById("box");
+                box.innerHTML = "";
+
+                d.questions.forEach((q, i) => {
+                    box.innerHTML += `<p>${i + 1}. ${q}</p>`;
+                });
+            })
+            .catch(e => {
+                document.getElementById("box").innerText = "XATO: " + e;
+            });
+    </script>
+
+</body>
+</html>

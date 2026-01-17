@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Login</h2>
+
+    <input id="name" placeholder="Ism"><br><br>
+    <input id="surname" placeholder="Familiya"><br><br>
+    <input id="birth" type="date"><br><br>
+
+    <button onclick="login()">Kirish</button>
+
+    <script>
+        function login() {
+            fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: document.getElementById("name").value,
+                    surname: document.getElementById("surname").value,
+                    birth: document.getElementById("birth").value
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Login muvaffaqiyatli");
+                        window.location.href = "ai-test.html"; // yoki test.html
+                    } else {
+                        alert("Ma'lumotlar to‘liq emas");
+                    }
+                })
+                .catch(err => alert("XATO: " + err));
+        }
+    </script>
+
+</body>
+</html>

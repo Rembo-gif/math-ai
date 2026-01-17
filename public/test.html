@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+    <h2>Matematik analiz testi</h2>
+    <div id="box"></div>
+    <button onclick="finish()">Yakunlash</button>
+
+    <script>
+        let answers = [];
+
+        fetch("http://localhost:3000/test")
+            .then(r => r.json())
+            .then(data => {
+                data.forEach((q, i) => {
+                    box.innerHTML += `
+          <p>${i + 1}) ${q.q}</p>
+          <input id="a${i}" placeholder="Javobingiz">
+          <hr>
+        `;
+                });
+            });
+
+        function finish() {
+            answers = [];
+            const inputs = document.querySelectorAll("input");
+
+            inputs.forEach(inp => answers.push(inp.value));
+
+            fetch("http://localhost:3000/check", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userAnswers: answers })
+            })
+                .then(r => r.json())
+                .then(d => {
+                    alert(`Natija: ${d.score} / ${d.total}`);
+                    window.location = "rating.html";
+
+                });
+        }
+    </script>
+
+</body>
+</html>
